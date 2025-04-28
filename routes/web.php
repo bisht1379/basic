@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.auth.login');
-});
+// Route::get('/', function () {
+//     return view('admin.auth.login');
+// });
 
 // Auth::routes();
 // Route::get('user/login', [App\Http\Controllers\AdminAuthController::class, 'readFile'])->name('admin.readFile');
 
-
+// add comment
 Route::get('user/login', [App\Http\Controllers\AdminAuthController::class, 'index'])->name('admin.login');
 Route::post('/password/reset', [App\Http\Controllers\AdminAuthController::class, 'sendResetLink'])->name('admin.reset');
 Route::get('user/forget-password', [App\Http\Controllers\AdminAuthController::class, 'forgetPassword'])->name('admin.forget.password');
