@@ -58,8 +58,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 ';
 
 
-        $mail->send();
-        echo "✅ Message sent successfully!";
+         if ($mail->send()) {
+            $logData = "=========================" . PHP_EOL;
+            $logData .= "Date: " . date("Y-m-d H:i:s") . PHP_EOL;
+            $logData .= "Name: $name" . PHP_EOL;
+            $logData .= "Email: $email" . PHP_EOL;
+            $logData .= "Message:\n$message" . PHP_EOL . PHP_EOL;
+
+            file_put_contents('messages.txt', $logData, FILE_APPEND);
+            echo "✅ Message sent and saved!";
+        } else {
+            echo "❌ Message could not be sent.";
+        }
+
     } catch (Exception $e) {
         echo "❌ Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
