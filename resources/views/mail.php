@@ -76,6 +76,47 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     }
 }
 ?>
+
+//csv///
+
+ if ($mail->send()) {
+            $csvData = [
+                date("Y-m-d H:i:s"),
+                $name,
+                $email,
+                str_replace(["\r", "\n"], [" ", " "], $message)
+            ];
+
+            $fp = fopen('messages.csv', 'a');
+            if (filesize('messages.csv') === 0) {
+                fputcsv($fp, ['Date', 'Name', 'Email', 'Message']);
+            }
+            fputcsv($fp, $csvData);
+            fclose($fp);
+
+            echo "✅ Message sent and saved to CSV!";
+        } else {
+            echo "❌ Message could not be sent.";
+        }
+
+    } catch (Exception $e) {
+        echo "❌ Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+?>
+
+
+///
+
+
+
+
+
+
+
+
+
+
 //html content//
       <form id="contact-form" class="contact-form" >
           <!-- <h4 class="text-center mb-4">Contact Us</h4> -->
